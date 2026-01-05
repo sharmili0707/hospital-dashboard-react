@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
+import Sidebar from "./components/Sidebar";
+import AppointmentsPage from "./pages/AppointmentsPage";
+import AppointmentViewPage from "./pages/AppointmentViewPage";
+import DiagnosisPage from "./pages/DiagnosisPage";
+
+import { Box, Toolbar, Typography } from "@mui/material";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Box sx={{ display: "flex" }}>
+        <Sidebar />
+
+        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+          <Toolbar />
+
+          <Typography variant="h4" align="center" gutterBottom>
+            Hospital Management
+          </Typography>
+
+          <Routes>
+            <Route path="/" element={<Navigate to="/appointments" />} />
+            <Route path="/appointments" element={<AppointmentsPage />} />
+            <Route path="/appointments/:id" element={<AppointmentViewPage />} />
+            <Route path="/diagnosis" element={<DiagnosisPage />} />
+          </Routes>
+
+        </Box>
+      </Box>
+    </BrowserRouter>
   );
 }
 
 export default App;
+
